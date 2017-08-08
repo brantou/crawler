@@ -49,7 +49,10 @@ class LagouSpider(scrapy.Spider):
     def start_requests(self):
          return [scrapy.http.FormRequest(
              self.positionUrl,
-             formdata={'pn':str(self.curPage),'kd':self.keyword},
+             formdata={
+                 'pn':str(self.curPage),
+                 'kd':self.keyword,
+                 'city': self.city},
              headers=self.headers,
              callback=self.parse)]
 
