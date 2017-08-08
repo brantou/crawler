@@ -61,7 +61,7 @@ class LagouSpider(scrapy.Spider):
         jcontent = jdict["content"]
         jposresult = jcontent["positionResult"]
         jresult = jposresult["result"]
-        self.totalPageCount = int(jposresult['totalCount'])/int(jposresult['resultSize']) + 1
+        self.totalPageCount = int(jposresult['totalCount'])/int(jcontent['pageSize']) + 1
         for entry in jresult:
             item['pid'] = entry['positionId']
             item['keyword'] = self.keyword
