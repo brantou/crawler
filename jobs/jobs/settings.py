@@ -52,9 +52,10 @@ ROBOTSTXT_OBEY = True
 
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
-#    'jobs.middlewares.MyCustomDownloaderMiddleware': 543,
-#}
+DOWNLOADER_MIDDLEWARES = {
+    'jobs.middlewares.RandomUserAgentMiddleware': 300,
+    'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 500,
+}
 
 # Enable or disable extensions
 # See http://scrapy.readthedocs.org/en/latest/topics/extensions.html
@@ -64,13 +65,14 @@ ROBOTSTXT_OBEY = True
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'jobs.pipelines.JobsPipeline': 300,
-#}
+ITEM_PIPELINES = {
+    'jobs.pipelines.DuplicatesPipeline': 300,
+    'jobs.pipelines.MongoPipeline': 500,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html
-#AUTOTHROTTLE_ENABLED = True
+AUTOTHROTTLE_ENABLED = True
 # The initial download delay
 #AUTOTHROTTLE_START_DELAY = 5
 # The maximum download delay to be set in case of high latencies
@@ -88,3 +90,11 @@ ROBOTSTXT_OBEY = True
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+# Feed exports
+# FEED_FORMAT = 'csv'
+# FEED_URI = 'flie:./scraping/feeds/%(name)s/%(time)s.csv'
+
+# Custom configuration
+MONGO_URI = 'mongodb://localhost:27017/'
+MONGO_DATABASE = 'jobs'
