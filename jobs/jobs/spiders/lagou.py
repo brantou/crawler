@@ -82,8 +82,8 @@ class LagouSpider(scrapy.Spider):
                     'city': self.city},
                 headers=self.headers,
                 callback=self.parse)
-        elif self.cur < len(self.keywords)-1:
-            self.curpage = 1
+        elif self.kd_cur < len(self.keywords)-1:
+            self.curPage = 1
             self.totalPageCount = 0
             self.kd_cur += 1
             self.keyword = self.keywords[self.kd_cur]
