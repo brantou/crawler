@@ -51,8 +51,8 @@ class LagouSpider(scrapy.Spider):
              self.positionUrl,
              formdata={
                  'pn':str(self.curPage),
-                 'kd':self.keyword,
-                 'city': self.city},
+                 'kd':self.keyword
+             },
              headers=self.headers,
              callback=self.parse)]
 
@@ -78,8 +78,8 @@ class LagouSpider(scrapy.Spider):
                 self.positionUrl,
                 formdata = {
                     'pn': str(self.curPage),
-                    'kd': self.keyword,
-                    'city': self.city},
+                    'kd': self.keyword
+                },
                 headers=self.headers,
                 callback=self.parse)
         elif self.kd_cur < len(self.keywords)-1:
@@ -92,6 +92,6 @@ class LagouSpider(scrapy.Spider):
                 headers=self.headers,
                 formdata = {
                     'pn': str(self.curPage),
-                    'kd': self.keyword,
-                    'city': self.city},
+                    'kd': self.keyword
+                },
                 callback=self.parse)
