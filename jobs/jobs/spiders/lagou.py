@@ -47,18 +47,18 @@ class LagouSpider(scrapy.Spider):
     }
 
     def start_requests(self):
-         return [scrapy.http.FormRequest(
-             self.positionUrl,
-             formdata={
-                 'pn':str(self.curPage),
-                 'kd':self.keyword
-             },
-             headers=self.headers,
-             callback=self.parse)]
+        return [scrapy.http.FormRequest(
+            self.positionUrl,
+            formdata={
+                'pn':str(self.curPage),
+                'kd':self.keyword
+            },
+            headers=self.headers,
+            callback=self.parse)]
 
 
     def parse(self, response):
-        print response.body
+        print(response.body)
         item = JobsItem()
         jdict = json.loads(response.body)
         jcontent = jdict["content"]
