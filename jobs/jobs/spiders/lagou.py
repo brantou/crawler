@@ -47,15 +47,7 @@ class LagouSpider(scrapy.Spider):
     }
 
     def start_requests(self):
-        return [scrapy.http.FormRequest(
-            self.positionUrl,
-            formdata={
-                'pn':str(self.curPage),
-                'kd':self.keyword
-            },
-            headers=self.headers,
-            callback=self.parse)]
-
+        return [self.next_request()]
 
     def parse(self, response):
         print(response.body)
@@ -74,24 +66,20 @@ class LagouSpider(scrapy.Spider):
 
         if self.curPage <= self.totalPageCount:
             self.curPage += 1
-            yield scrapy.http.FormRequest(
-                self.positionUrl,
-                formdata = {
-                    'pn': str(self.curPage),
-                    'kd': self.keyword
-                },
-                headers=self.headers,
-                callback=self.parse)
+            yield self.next_request()
         elif self.kd_cur < len(self.keywords)-1:
             self.curPage = 1
             self.totalPageCount = 0
             self.kd_cur += 1
             self.keyword = self.keywords[self.kd_cur]
-            yield scrapy.http.FormRequest(
-                self.positionUrl,
-                headers=self.headers,
-                formdata = {
-                    'pn': str(self.curPage),
-                    'kd': self.keyword
-                },
-                callback=self.parse)
+            yield self.next_request()
+
+    def next_request(self):
+        return scrapy.http.FormRequest(
+            self.positionUrl,
+            headers=self.headers,
+            formdata = {
+                'pn': str(self.curPage),
+                'kd': self.keyword
+            },
+            callback=self.parse)
