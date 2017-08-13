@@ -32,15 +32,15 @@ def fetch_kxdaili(page):
             port = tds[1].text
             latency = tds[4].text.split(" ")[0]
             if float(latency) < 0.5: # 输出延迟小于0.5秒的代理
-                proxy = "%s:%s" % (ip, port)
-                proxies.append(proxy)
+                proxies.append("%s:%s" % (ip, port))
     except:
         logger.warning("fail to fetch from kxdaili")
     return proxies
 
 def img2port(img_url):
     """
-    http://proxy.mimvp.com 的端口号用图片来显示, 本函数将图片url映射到端口
+    http://proxy.mimvp.com 的端口号用图片来显示,
+    本函数将图片url映射到端口
     """
     code = img_url.split("=")[-1]
     if code.find("4vMpAO0OO0O")>0:
@@ -90,8 +90,7 @@ def fetch_mimvp():
                     if "HTTP" in protocal_types \
                        and port is not None \
                        and float(response_time) < 1 :
-                        proxy = "%s:%s" % (ip, port)
-                        proxies.append(proxy)
+                        proxies.append("%s:%s" % (ip, port))
     except:
         logger.warning("fail to fetch from mimvp")
     return proxies
@@ -200,8 +199,7 @@ def fetch_data5u():
             protocal_types = spans[3].li.text.split(",")
             response_time = spans[7].li.text[:-2]
             if float(response_time) < 0.5:
-                proxy = "%s:%s" % (ip, port)
-                proxies.append(proxy)
+                proxies.append("%s:%s" % (ip, port))
     except:
         logger.warning("failed to fetch from data5u")
     return proxies
@@ -222,8 +220,7 @@ def fetch_kdaili(page=1):
             port = tds[1].text
             response_time = tds[5].text[:-1]
             if float(response_time) < 0.5:
-                proxy = "%s:%s" % (ip,port)
-                proxies.append(proxy)
+                proxies.append("%s:%s" % (ip,port))
     except:
         logger.warning("failed to fetch kuaidaili")
     return proxies
@@ -245,8 +242,7 @@ def fetch_ip002(page=1):
             port = tds[2].text
             response_time = tds[4].text.split("/")[0]
             if float(response_time) < 500:
-                proxy = "%s:%s" % (ip,port)
-                proxies.append(proxy)
+                proxies.append("%s:%s" % (ip,port))
     except:
         logger.warning("failed to fetch ip002")
     return proxies
