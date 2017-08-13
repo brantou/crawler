@@ -213,7 +213,6 @@ def fetch_kdaili(page=1):
     proxies = []
     try:
         url = "http://www.kuaidaili.com/free/inha/%d/" % page
-        print(url)
         soup = get_soup(url)
         div = soup.find("div", attrs={"id":"list"})
         trs = div.table.tbody.find_all("tr")
@@ -264,8 +263,6 @@ def check(proxy):
 
 def fetch_all(endpage=2):
     proxies = []
-    proxies += fetch_ip002()
-    proxies += fetch_data5u()
     for i in range(1, endpage):
         proxies += fetch_kxdaili(i)
     proxies += fetch_mimvp()
@@ -273,13 +270,15 @@ def fetch_all(endpage=2):
     proxies += fetch_ip181()
     proxies += fetch_httpdaili()
     proxies += fetch_66ip()
+    proxies += fetch_ip002()
+    proxies += fetch_data5u()
     proxies += fetch_kdaili()
     valid_proxies = []
     logger.info("checking proxies validation")
     for p in proxies:
         if check(p):
             valid_proxies.append(p)
-            print p
+            print(p)
     return valid_proxies
 
 if __name__ == '__main__':
@@ -294,4 +293,4 @@ if __name__ == '__main__':
     proxies = fetch_all()
     for p in proxies:
         if check(p):
-            print p
+            print(p)
