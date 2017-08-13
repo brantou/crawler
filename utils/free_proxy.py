@@ -18,7 +18,7 @@ def get_soup(url):
 
 def fetch_kxdaili(page):
     """
-    从www.kxdaili.com抓取免费代理
+    从http://www.kxdaili.com抓取免费代理
     """
     proxies = []
     try:
@@ -40,7 +40,7 @@ def fetch_kxdaili(page):
 
 def img2port(img_url):
     """
-    mimvp.com的端口号用图片来显示, 本函数将图片url转为端口, 目前的临时性方法并不准确
+    http://proxy.mimvp.com 的端口号用图片来显示, 本函数将图片url映射到端口
     """
     code = img_url.split("=")[-1]
     if code.find("4vMpAO0OO0O")>0:
@@ -51,9 +51,9 @@ def img2port(img_url):
         return 3128
     elif code.find("4vMpDgw")>0:
         return 8080
-    elif code.find("4vOpDg4"):
+    elif code.find("4vOpDg4")>0:
         return 8088
-    elif code.find("4vMpDg5"):
+    elif code.find("4vMpDg5")>0:
         return 8089
     elif code.find("4vMpTE4")>0:
         return 8118
@@ -68,7 +68,7 @@ def img2port(img_url):
 
 def fetch_mimvp():
     """
-    从http://proxy.mimvp.com/free.php抓免费代理
+    从http://proxy.mimvp.com/free.php 抓免费代理
     """
     proxy_types = ["in_tp", "in_hp"]
     sort_fns = ["", "p_transfer", "p_ping"]
