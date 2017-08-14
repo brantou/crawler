@@ -64,27 +64,28 @@ def fetch_mimvp():
     """
     从http://proxy.mimvp.com/free.php 抓免费代理
     """
-    proxy_types = ["in_tp", "in_hp"]
-    sort_fns = ["", "p_transfer", "p_ping"]
+    querys = [
+        "proxy=in_tp", "proxy=in_hp",
+        "proxy=in_tp&sort=p_transfer", "proxy=in_hp&sort=p_transfer",
+        "proxy=in_tp&sort=p_ping", "proxy=in_hp&sort=p_ping",
+    ]
     proxies = []
     try:
-        for proxy_type in proxy_types:
-            for sort_fn in sort_fns:
-                url = "http://proxy.mimvp.com/free.php?proxy="+ proxy_type
-                url += "&sort=" + sort_fn
-                soup = get_soup(url)
-                table = soup.find("div", attrs={"class": "free-list"}).table
-                tds = table.tbody.find_all("td")
-                for i in range(0, len(tds), 10):
-                    ip = tds[i+1].text
-                    port = img2port(tds[i+2].img["src"])
-                    protocal_types = tds[i+3]["title"].split("/")
-                    response_time = tds[i+7]["title"][:-1]
-                    transport_time = tds[i+8]["title"][:-1]
-                    if "HTTP" in protocal_types \
-                       and port is not None \
-                       and float(response_time) < 1 :
-                        proxies.append("%s:%s" % (ip, port))
+        for query in querys:
+            url = "http://proxy.mimvp.com/free.php?%s" % (query)
+            soup = get_soup(url)
+            table = soup.find("div", attrs={"class": "free-list"}).table
+            tds = table.tbody.find_all("td")
+            for i in range(0, len(tds), 10):
+                ip = tds[i+1].text
+                port = img2port(tds[i+2].img["src"])
+                protocal_types = tds[i+3]["title"].split("/")
+                response_time = tds[i+7]["title"][:-1]
+                transport_time = tds[i+8]["title"][:-1]
+                if "HTTP" in protocal_types \
+                   and port is not None \
+                   and float(response_time) < 1 :
+                    proxies.append("%s:%s" % (ip, port))
     except:
         logger.warning("fail to fetch from mimvp")
     return proxies
