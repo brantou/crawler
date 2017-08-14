@@ -269,7 +269,6 @@ def fetch_all(endpage=2):
     for p in proxies:
         if check(p):
             valid_proxies.append(p)
-            print(p)
     return valid_proxies
 
 if __name__ == '__main__':
@@ -282,6 +281,6 @@ if __name__ == '__main__':
     logger = logging.getLogger(__name__)
     logger.setLevel(logging.DEBUG)
     proxies = fetch_all()
-    for p in proxies:
-        if check(p):
-            print(p)
+    with open("proxies.dat", "w") as fd:
+        for proxy in proxies:
+            fd.write(proxy+"\n")

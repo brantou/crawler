@@ -32,6 +32,12 @@ def get_ip_info(ip=''):
     xml.sax.parseString(response.text, Handler)
     return Handler.ip_info
 
+def get_local_ip():
+    url = "http://icanhazip.com"
+    response = requests.request('GET', url)
+    return response.text
+
 if ( __name__ == '__main__'):
     print(get_ip_info())
     print(get_ip_info('8.8.8.8'))
+
