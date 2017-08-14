@@ -42,29 +42,23 @@ def img2port(img_url):
     http://proxy.mimvp.com 的端口号用图片来显示,
     本函数将图片url映射到端口
     """
+    url2port = {
+        "4vMpAO0OO0O": 80,
+        "4vMpQO0OO0O": 81,
+        "zvMpTI4": 3128,
+        "4vMpDgw": 8080,
+        "4vOpDg4": 8088,
+        "4vMpDg5": 8089,
+        "4vMpTE4": 8118,
+        "4vMpTIz": 8123,
+        "4vOpDg4": 8888,
+        "5vMpDAw": 9000,
+    }
     code = img_url.split("=")[-1]
-    if code.find("4vMpAO0OO0O")>0:
-        return 80
-    elif code.find("4vMpQO0OO0O")>0:
-        return 81
-    elif code.find("zvMpTI4")>0:
-        return 3128
-    elif code.find("4vMpDgw")>0:
-        return 8080
-    elif code.find("4vOpDg4")>0:
-        return 8088
-    elif code.find("4vMpDg5")>0:
-        return 8089
-    elif code.find("4vMpTE4")>0:
-        return 8118
-    elif code.find("4vMpTIz")>0:
-        return 8123
-    elif code.find("4vOpDg4")>0:
-        return 8888
-    elif code.find("5vMpDAw")>0:
-        return 9000
-    else:
-        return None
+    for k in url2port:
+        if code.find(k)>0:
+            return url2port[k]
+    return None
 
 def fetch_mimvp():
     """
