@@ -18,6 +18,12 @@ def get_soup(url):
     soup = BeautifulSoup(get_html(url), "lxml")
     return soup
 
+def _filter_proxy(resp_time, proxy):
+    if resp_time < 0.5:
+        return [proxy]
+    else:
+        return []
+
 def fetch_kxdaili(page):
     """
     从http://www.kxdaili.com抓取免费代理
@@ -33,8 +39,8 @@ def fetch_kxdaili(page):
             ip = tds[0].text
             port = tds[1].text
             latency = tds[4].text.split(" ")[0]
-            if float(latency) < 0.5: # 输出延迟小于0.5秒的代理
-                proxies.append("%s:%s" % (ip, port))
+            proxy = "%s:%s" % (ip, port)
+            proxies.append(_filter_proxy(float(latency), proxy))
     except:
         logger.warning("fail to fetch from kxdaili")
     return proxies
@@ -84,10 +90,9 @@ def fetch_mimvp():
                 protocal_types = tds[i+3]["title"].split("/")
                 response_time = tds[i+7]["title"][:-1]
                 transport_time = tds[i+8]["title"][:-1]
-                if "HTTP" in protocal_types \
-                   and port is not None \
-                   and float(response_time) < 1 :
-                    proxies.append("%s:%s" % (ip, port))
+                proxy = "%s:%s" % (ip, port)
+                if port is not None:
+                    proxies.append(_filter_proxy(float(response_time), proxy))
     except:
         logger.warning("fail to fetch from mimvp")
     return proxies
@@ -109,7 +114,7 @@ def fetch_xici():
             port = tds[2].text
             speed = tds[6].div["title"][:-1]
             latency = tds[7].div["title"][:-1]
-            if float(speed) < 3 and float(latency) < 1:
+            if float(speed) < 0.5 and float(latency) < 1.0:
                 proxies.append("%s:%s" % (ip, port))
     except:
         logger.warning("fail to fetch from xici")
@@ -129,9 +134,9 @@ def fetch_ip181():
             tds = trs[i].find_all("td")
             ip = tds[0].text
             port = tds[1].text
-            latency = tds[4].text[:-2]
-            if float(latency) < 1:
-                proxies.append("%s:%s" % (ip, port))
+            response_time = tds[4].text[:-2]
+            proxy = "%s:%s" % (ip, port)
+            proxies.append(_filter_proxy(float(response_time), proxy))
     except Exception as e:
         logger.warning("fail to fetch from ip181: %s" % e)
     return proxies
@@ -153,8 +158,7 @@ def fetch_httpdaili():
                 ip = tds[0].text
                 port = tds[1].text
                 type = tds[2].text
-                if type == u"匿名":
-                    proxies.append("%s:%s" % (ip, port))
+                proxies.append("%s:%s" % (ip, port))
             except:
                 pass
     except Exception as e:
@@ -195,8 +199,8 @@ def fetch_data5u():
             port = spans[1].li.text
             protocal_types = spans[3].li.text.split(",")
             response_time = spans[7].li.text[:-2]
-            if float(response_time) < 0.5:
-                proxies.append("%s:%s" % (ip, port))
+            proxy = "%s:%s" % (ip, port)
+            proxies.append(_filter_proxy(float(response_time), proxy))
     except:
         logger.warning("failed to fetch from data5u")
     return proxies
@@ -216,8 +220,8 @@ def fetch_kdaili(page=1):
             ip = tds[0].text
             port = tds[1].text
             response_time = tds[5].text[:-1]
-            if float(response_time) < 0.5:
-                proxies.append("%s:%s" % (ip,port))
+            proxy = "%s:%s" % (ip, port)
+            proxies.append(_filter_proxy(float(response_time), proxy))
     except:
         logger.warning("failed to fetch kuaidaili")
     return proxies
@@ -238,8 +242,8 @@ def fetch_ip002(page=1):
             ip = tds[1].text
             port = tds[2].text
             response_time = tds[4].text.split("/")[0]
-            if float(response_time) < 500:
-                proxies.append("%s:%s" % (ip,port))
+            proxy = "%s:%s" % (ip, port)
+            proxies.append(_filter_proxy(float(response_time)/1000.00, proxy))
     except:
         logger.warning("failed to fetch ip002")
     return proxies
