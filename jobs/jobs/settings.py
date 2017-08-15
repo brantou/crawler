@@ -58,7 +58,7 @@ DOWNLOADER_MIDDLEWARES = {
     'jobs.middlewares.RandomUserAgentMiddleware': 500,  # Enable custom user-agent middleware
     'scrapy.downloadermiddlewares.retry.RetryMiddleware': 550,
     'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 750,
-    'jobs.middlewares.RandomHttpProxyMiddleware': 999,
+    # 'jobs.middlewares.RandomHttpProxyMiddleware': 999,
 }
 
 # Enable or disable extensions

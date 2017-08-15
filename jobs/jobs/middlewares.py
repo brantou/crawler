@@ -5,9 +5,11 @@
 # See documentation in:
 # http://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
+import os
 import random
 from scrapy import signals
 from fake_useragent import UserAgent
+import logging
 
 logger = logging.getLogger(__name__)
 
@@ -90,7 +92,7 @@ class RandomHttpProxyMiddleware(object):
         self.chosen_proxy = ''
         if self.proxy_file is None:
             raise KeyError('PROXY_FILE setting is missing')
-        if !os.path.exists(self.proxy_file):
+        if not os.path.exists(self.proxy_file):
             raise KeyError('PROXY_FILE not exists')
 
         if self.proxy_mode == ProxyMode.CUSTOM_SET:
@@ -100,7 +102,8 @@ class RandomHttpProxyMiddleware(object):
             self.proxies.append(self.chosen_proxy)
             return
 
-        if self.proxy_mode >= ProxyMode.CHANGE_EVERY_REQ and self.proxy_mode <= ProxyMode.RANDOM_ONCE_INIT:
+        if self.proxy_mode >= ProxyMode.CHANGE_EVERY_REQ \
+           and self.proxy_mode <= ProxyMode.RANDOM_ONCE_INIT:
             with open(self.proxy_file, "r") as fd:
                 lines = fd.readlines()
                 for line in lines:
@@ -109,10 +112,10 @@ class RandomHttpProxyMiddleware(object):
                         continue
                     self.proxies.append("http://"  + line)
 
-         if self.proxy_mode == ProxyMode.RANDOM_ONCE_INIT:
-             self.chosen_proxy = random.choice(self.proxies)
+        if self.proxy_mode == ProxyMode.RANDOM_ONCE_INIT:
+            self.chosen_proxy = random.choice(self.proxies)
 
-    def _in_proxyes(self, proxy):
+    def _in_proxies(self, proxy):
         """
         返回一个代理是否在代理列表中
         """
