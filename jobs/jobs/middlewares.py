@@ -72,6 +72,5 @@ class RandomUserAgentMiddleware(object):
         def get_ua():
             '''Gets random UA based on the type setting (random, firefox…)'''
             return getattr(self.ua, self.ua_type)
-        ua = get_ua()
 
         request.headers.setdefault('User-Agent', get_ua())
