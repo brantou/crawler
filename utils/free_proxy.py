@@ -3,6 +3,8 @@
 from bs4 import BeautifulSoup
 import urllib2
 import logging
+from ip_info import get_local_ip
+from check_proxy import check_proxy
 
 logger = logging.getLogger(__name__)
 
@@ -242,16 +244,6 @@ def fetch_ip002(page=1):
         logger.warning("failed to fetch ip002")
     return proxies
 
-def check(proxy):
-    url = "http://www.baidu.com/js/bdsug.js?v=1.0.3.0"
-    proxy_handler = urllib2.ProxyHandler({'http': "http://" + proxy})
-    opener = urllib2.build_opener(proxy_handler,urllib2.HTTPHandler)
-    try:
-        response = opener.open(url,timeout=3)
-        return response.code == 200 and response.url == url
-    except Exception:
-        return False
-
 def fetch_all(endpage=2):
     proxies = []
     for i in range(1, endpage):
@@ -266,8 +258,11 @@ def fetch_all(endpage=2):
     proxies += fetch_kdaili()
     valid_proxies = []
     logger.info("checking proxies validation")
+    self_ip = get_local_ip()
     for p in proxies:
-        if check(p):
+        bEnable, proxy_type = check_proxy(self_ip, p)
+        print(p, bEnable, proxy_type)
+        if bEnable and proxy_type == "anoy_h":
             valid_proxies.append(p)
     return valid_proxies
 
