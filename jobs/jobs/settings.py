@@ -58,6 +58,7 @@ DOWNLOADER_MIDDLEWARES = {
     'jobs.middlewares.RandomUserAgentMiddleware': 500,  # Enable custom user-agent middleware
     'scrapy.downloadermiddlewares.retry.RetryMiddleware': 550,
     'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 750,
+    'jobs.middlewares.RandomHttpProxyMiddleware': 999,
 }
 
 # Enable or disable extensions
@@ -101,3 +102,7 @@ AUTOTHROTTLE_DEBUG = False
 # Custom configuration
 MONGO_URI = 'mongodb://localhost:27017/'
 MONGO_DATABASE = 'jobs'
+
+# Proxy config
+PROXY_MODE = 0
+PROXY_FILE = 'proxies.dat'

@@ -294,7 +294,7 @@ if __name__ == '__main__':
     root_logger.addHandler(stream_handler)
     logger = logging.getLogger(__name__)
     logger.setLevel(logging.DEBUG)
-    proxies = fetch_kdaili()
+    proxies = fetch_all()
     with open("proxies.dat", "w") as fd:
         for proxy in proxies:
             fd.write(proxy+"\n")
