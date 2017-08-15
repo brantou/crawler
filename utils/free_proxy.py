@@ -1,12 +1,25 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 from bs4 import BeautifulSoup
+import requests
 import urllib2
 import logging
 from ip_info import get_local_ip
 from check_proxy import check_proxy
 
 logger = logging.getLogger(__name__)
+
+postman_headers = {
+    "Cache-Control":"no-cache",
+    "X-Postman-Interceptor-Id":"ef2745b4-246d-8362-b6f7-bd2ef45dd910",
+    "User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36",
+    "Postman-Token":"534b6064-fc3e-c577-da27-fefeca24346b",
+    "Accept":"*/*",
+    "DNT":"1",
+    "Accept-Encoding":"gzip, deflate",
+    "Accept-Language":"zh-CN,zh;q=0.8,en;q=0.6",
+    "Cookie":"auth=2e7ac706e8461dd98bb679502951b17b; JSESSIONID=C6550B3EB31544825D03BC5A8EB60EFA; Hm_lvt_3406180e5d656c4789c6c08b08bf68c2=1502597177; Hm_lpvt_3406180e5d656c4789c6c08b08bf68c2=1502767721; auth=2e7ac706e8461dd98bb679502951b17b; JSESSIONID=C55C93B915D81D5ED6082F0C0C492E80; Hm_lvt_3406180e5d656c4789c6c08b08bf68c2=1502597177; Hm_lpvt_3406180e5d656c4789c6c08b08bf68c2=1502789892",
+}
 
 def get_html(url):
     request = urllib2.Request(url)
@@ -40,7 +53,7 @@ def fetch_kxdaili(page):
             port = tds[1].text
             latency = tds[4].text.split(" ")[0]
             proxy = "%s:%s" % (ip, port)
-            proxies.append(_filter_proxy(float(latency), proxy))
+            proxies += _filter_proxy(float(latency), proxy)
     except:
         logger.warning("fail to fetch from kxdaili")
     return proxies
@@ -92,7 +105,7 @@ def fetch_mimvp():
                 transport_time = tds[i+8]["title"][:-1]
                 proxy = "%s:%s" % (ip, port)
                 if port is not None:
-                    proxies.append(_filter_proxy(float(response_time), proxy))
+                    proxies += _filter_proxy(float(response_time), proxy)
     except:
         logger.warning("fail to fetch from mimvp")
     return proxies
@@ -136,7 +149,7 @@ def fetch_ip181():
             port = tds[1].text
             response_time = tds[4].text[:-2]
             proxy = "%s:%s" % (ip, port)
-            proxies.append(_filter_proxy(float(response_time), proxy))
+            proxies += _filter_proxy(float(response_time), proxy)
     except Exception as e:
         logger.warning("fail to fetch from ip181: %s" % e)
     return proxies
@@ -189,8 +202,9 @@ def fetch_data5u():
     """
     proxies = []
     try:
-        url = "http://www.data5u.com/free/gngn/index.shtml"
-        soup = get_soup(url)
+        url = "http://www.data5u.com/free/anoy/%E9%AB%98%E5%8C%BF/index.html"
+        response = requests.request("GET", url, headers=postman_headers)
+        soup = BeautifulSoup(response.text, "lxml")
         div = soup.find("div", attrs={"class": "wlist"})
         uls = div.find_all("ul", attrs={"class":"l2"})
         for ul in uls:
@@ -200,7 +214,7 @@ def fetch_data5u():
             protocal_types = spans[3].li.text.split(",")
             response_time = spans[7].li.text[:-2]
             proxy = "%s:%s" % (ip, port)
-            proxies.append(_filter_proxy(float(response_time), proxy))
+            proxies += _filter_proxy(float(response_time), proxy)
     except:
         logger.warning("failed to fetch from data5u")
     return proxies
@@ -212,7 +226,8 @@ def fetch_kdaili(page=1):
     proxies = []
     try:
         url = "http://www.kuaidaili.com/free/inha/%d/" % page
-        soup = get_soup(url)
+        response = requests.request("GET", url, headers=postman_headers)
+        soup = BeautifulSoup(response.text, "lxml")
         div = soup.find("div", attrs={"id":"list"})
         trs = div.table.tbody.find_all("tr")
         for tr in trs:
@@ -221,7 +236,7 @@ def fetch_kdaili(page=1):
             port = tds[1].text
             response_time = tds[5].text[:-1]
             proxy = "%s:%s" % (ip, port)
-            proxies.append(_filter_proxy(float(response_time), proxy))
+            proxies += _filter_proxy(float(response_time), proxy)
     except:
         logger.warning("failed to fetch kuaidaili")
     return proxies
@@ -243,7 +258,7 @@ def fetch_ip002(page=1):
             port = tds[2].text
             response_time = tds[4].text.split("/")[0]
             proxy = "%s:%s" % (ip, port)
-            proxies.append(_filter_proxy(float(response_time)/1000.00, proxy))
+            proxies += _filter_proxy(float(response_time)/1000.00, proxy)
     except:
         logger.warning("failed to fetch ip002")
     return proxies
@@ -279,7 +294,7 @@ if __name__ == '__main__':
     root_logger.addHandler(stream_handler)
     logger = logging.getLogger(__name__)
     logger.setLevel(logging.DEBUG)
-    proxies = fetch_all()
+    proxies = fetch_kdaili()
     with open("proxies.dat", "w") as fd:
         for proxy in proxies:
             fd.write(proxy+"\n")
