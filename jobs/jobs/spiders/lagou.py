@@ -6,9 +6,9 @@ from jobs.items import JobsItem
 
 class LagouSpider(scrapy.Spider):
     name = 'lagou'
-    # allowed_domains = ['www.lagou.com']
-    start_urls = ['http://www.lagou.com/jobs/']
-    positionUrl = 'http://www.lagou.com/jobs/positionAjax.json?'
+    allowed_domains = ['www.lagou.com']
+    start_urls = ['https://www.lagou.com/jobs/']
+    positionUrl = 'https://www.lagou.com/jobs/positionAjax.json?'
 
     totalPageCount = 0
     curPage = 1
