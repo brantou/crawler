@@ -9,9 +9,11 @@ import pymongo
 import json
 from scrapy.exceptions import DropItem
 
+
 class JobsPipeline(object):
     def process_item(self, item, spider):
         return item
+
 
 class MongoPipeline(object):
 
@@ -24,9 +26,9 @@ class MongoPipeline(object):
     @classmethod
     def from_crawler(cls, crawler):
         return cls(
-            mongo_uri=crawler.settings.get('MONGO_URI', 'mongodb://localhost:27017/'),
-            mongo_db=crawler.settings.get('MONGO_DATABASE', 'jobs')
-        )
+            mongo_uri=crawler.settings.get('MONGO_URI',
+                                           'mongodb://localhost:27017/'),
+            mongo_db=crawler.settings.get('MONGO_DATABASE', 'jobs'))
 
     def open_spider(self, spider):
         self.client = pymongo.MongoClient(self.mongo_uri)
@@ -41,7 +43,6 @@ class MongoPipeline(object):
 
 
 class DuplicatesPipeline(object):
-
     def __init__(self):
         self.ids_seen = set()
 

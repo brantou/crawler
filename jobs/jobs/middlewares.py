@@ -13,6 +13,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+
 class JobsSpiderMiddleware(object):
     # Not all methods need to be defined. If a method is not defined,
     # scrapy acts as if the spider middleware does not modify the
@@ -83,11 +84,13 @@ class RandomUserAgentMiddleware(object):
 class ProxyMode:
     CHANGE_EVERY_REQ, RANDOM_EVERY_REQ, RANDOM_ONCE_INIT, CUSTOM_SET = range(4)
 
+
 class RandomHttpProxyMiddleware(object):
     def __init__(self, crawler):
         self.proxy_index = 0
         self.proxies = []
-        self.proxy_mode = crawler.settings.get('PROXY_MODE', ProxyMode.CHANGE_EVERY_REQ)
+        self.proxy_mode = crawler.settings.get('PROXY_MODE',
+                                               ProxyMode.CHANGE_EVERY_REQ)
         self.proxy_file = crawler.settings.get('PROXY_FILE')
         self.chosen_proxy = ''
         if self.proxy_file is None:
@@ -119,7 +122,7 @@ class RandomHttpProxyMiddleware(object):
                 line = line.strip()
                 if not line or self._in_proxies("http://" + line):
                     continue
-                self.proxies.append("http://"  + line)
+                self.proxies.append("http://" + line)
 
     def _in_proxies(self, proxy):
         """
@@ -147,7 +150,7 @@ class RandomHttpProxyMiddleware(object):
             self.proxy_index = (self.proxy_index + 1) % len(self.proxies)
             proxy_address = self.proxies[self.proxy_index]
         else:
-             proxy_address = self.chosen_proxy
+            proxy_address = self.chosen_proxy
 
     @classmethod
     def from_crawler(cls, crawler):
@@ -166,9 +169,10 @@ class RandomHttpProxyMiddleware(object):
         if len(self.proxies) == 0:
             raise ValueError('All proxies are unusable, cannot proceed')
 
-        proxy_address =  self._choice_proxy()
+        proxy_address = self._choice_proxy()
         request.meta['proxy'] = proxy_address
-        logger.debug('Using proxy <%s>, %d proxies left' % (proxy_address, len(self.proxies)))
+        logger.debug('Using proxy <%s>, %d proxies left' % (proxy_address,
+                                                            len(self.proxies)))
 
     def process_response(self, request, response, spider):
         """
@@ -176,7 +180,8 @@ class RandomHttpProxyMiddleware(object):
         根据status是否在允许的状态码中决定是否切换到下一个proxy
         """
         if "proxy" in request.meta.keys():
-            logger.debug("%s %s %s" % (request.meta["proxy"], response.status, request.url))
+            logger.debug("%s %s %s" % (request.meta["proxy"], response.status,
+                                       request.url))
         else:
             logger.debug("None %s %s" % (response.status, request.url))
 
@@ -199,4 +204,5 @@ class RandomHttpProxyMiddleware(object):
         proxy = request.meta['proxy']
         self._remove_proxy(proxy)
         request.meta["exception"] = True
-        logger.debug('Removing failed proxy <%s>, %d proxies left' % (proxy, len(self.proxies)))
+        logger.debug('Removing failed proxy <%s>, %d proxies left' %
+                     (proxy, len(self.proxies)))

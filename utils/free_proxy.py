@@ -10,32 +10,48 @@ from check_proxy import check_proxy
 logger = logging.getLogger(__name__)
 
 postman_headers = {
-    "Cache-Control":"no-cache",
-    "X-Postman-Interceptor-Id":"ef2745b4-246d-8362-b6f7-bd2ef45dd910",
-    "User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36",
-    "Postman-Token":"534b6064-fc3e-c577-da27-fefeca24346b",
-    "Accept":"*/*",
-    "DNT":"1",
-    "Accept-Encoding":"gzip, deflate",
-    "Accept-Language":"zh-CN,zh;q=0.8,en;q=0.6",
-    "Cookie":"auth=2e7ac706e8461dd98bb679502951b17b; JSESSIONID=C6550B3EB31544825D03BC5A8EB60EFA; Hm_lvt_3406180e5d656c4789c6c08b08bf68c2=1502597177; Hm_lpvt_3406180e5d656c4789c6c08b08bf68c2=1502767721; auth=2e7ac706e8461dd98bb679502951b17b; JSESSIONID=C55C93B915D81D5ED6082F0C0C492E80; Hm_lvt_3406180e5d656c4789c6c08b08bf68c2=1502597177; Hm_lpvt_3406180e5d656c4789c6c08b08bf68c2=1502789892",
+    "Cache-Control":
+    "no-cache",
+    "X-Postman-Interceptor-Id":
+    "ef2745b4-246d-8362-b6f7-bd2ef45dd910",
+    "User-Agent":
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36",
+    "Postman-Token":
+    "534b6064-fc3e-c577-da27-fefeca24346b",
+    "Accept":
+    "*/*",
+    "DNT":
+    "1",
+    "Accept-Encoding":
+    "gzip, deflate",
+    "Accept-Language":
+    "zh-CN,zh;q=0.8,en;q=0.6",
+    "Cookie":
+    "auth=2e7ac706e8461dd98bb679502951b17b; JSESSIONID=C6550B3EB31544825D03BC5A8EB60EFA; Hm_lvt_3406180e5d656c4789c6c08b08bf68c2=1502597177; Hm_lpvt_3406180e5d656c4789c6c08b08bf68c2=1502767721; auth=2e7ac706e8461dd98bb679502951b17b; JSESSIONID=C55C93B915D81D5ED6082F0C0C492E80; Hm_lvt_3406180e5d656c4789c6c08b08bf68c2=1502597177; Hm_lpvt_3406180e5d656c4789c6c08b08bf68c2=1502789892",
 }
+
 
 def get_html(url):
     request = urllib2.Request(url)
-    request.add_header("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36")
+    request.add_header(
+        "User-Agent",
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36"
+    )
     html = urllib2.urlopen(request)
     return html.read()
+
 
 def get_soup(url):
     soup = BeautifulSoup(get_html(url), "lxml")
     return soup
+
 
 def _filter_proxy(resp_time, proxy):
     if resp_time < 0.5:
         return [proxy]
     else:
         return []
+
 
 def fetch_kxdaili(page):
     """
@@ -58,6 +74,7 @@ def fetch_kxdaili(page):
         logger.warning("fail to fetch from kxdaili")
     return proxies
 
+
 def img2port(img_url):
     """
     http://proxy.mimvp.com 的端口号用图片来显示,
@@ -77,18 +94,22 @@ def img2port(img_url):
     }
     code = img_url.split("=")[-1]
     for k in url2port:
-        if code.find(k)>0:
+        if code.find(k) > 0:
             return url2port[k]
     return None
+
 
 def fetch_mimvp():
     """
     从http://proxy.mimvp.com/free.php 抓免费代理
     """
     querys = [
-        "proxy=in_tp", "proxy=in_hp",
-        "proxy=in_tp&sort=p_transfer", "proxy=in_hp&sort=p_transfer",
-        "proxy=in_tp&sort=p_ping", "proxy=in_hp&sort=p_ping",
+        "proxy=in_tp",
+        "proxy=in_hp",
+        "proxy=in_tp&sort=p_transfer",
+        "proxy=in_hp&sort=p_transfer",
+        "proxy=in_tp&sort=p_ping",
+        "proxy=in_hp&sort=p_ping",
     ]
     proxies = []
     try:
@@ -98,17 +119,18 @@ def fetch_mimvp():
             table = soup.find("div", attrs={"class": "free-list"}).table
             tds = table.tbody.find_all("td")
             for i in range(0, len(tds), 10):
-                ip = tds[i+1].text
-                port = img2port(tds[i+2].img["src"])
-                protocal_types = tds[i+3]["title"].split("/")
-                response_time = tds[i+7]["title"][:-1]
-                transport_time = tds[i+8]["title"][:-1]
+                ip = tds[i + 1].text
+                port = img2port(tds[i + 2].img["src"])
+                protocal_types = tds[i + 3]["title"].split("/")
+                response_time = tds[i + 7]["title"][:-1]
+                transport_time = tds[i + 8]["title"][:-1]
                 proxy = "%s:%s" % (ip, port)
                 if port is not None:
                     proxies += _filter_proxy(float(response_time), proxy)
     except:
         logger.warning("fail to fetch from mimvp")
     return proxies
+
 
 def fetch_xici():
     """
@@ -133,6 +155,7 @@ def fetch_xici():
         logger.warning("fail to fetch from xici")
     return proxies
 
+
 def fetch_ip181():
     """
     http://www.ip181.com/
@@ -153,6 +176,7 @@ def fetch_ip181():
     except Exception as e:
         logger.warning("fail to fetch from ip181: %s" % e)
     return proxies
+
 
 def fetch_httpdaili():
     """
@@ -178,6 +202,7 @@ def fetch_httpdaili():
         logger.warning("fail to fetch from httpdaili: %s" % e)
     return proxies
 
+
 def fetch_66ip():
     """
     http://www.66ip.cn/
@@ -196,6 +221,7 @@ def fetch_66ip():
         logger.warning("fail to fetch from httpdaili: %s" % e)
     return proxies
 
+
 def fetch_data5u():
     """
     http://www.data5u.com/
@@ -206,7 +232,7 @@ def fetch_data5u():
         response = requests.request("GET", url, headers=postman_headers)
         soup = BeautifulSoup(response.text, "lxml")
         div = soup.find("div", attrs={"class": "wlist"})
-        uls = div.find_all("ul", attrs={"class":"l2"})
+        uls = div.find_all("ul", attrs={"class": "l2"})
         for ul in uls:
             spans = ul.find_all("span")
             ip = spans[0].li.text
@@ -219,6 +245,7 @@ def fetch_data5u():
         logger.warning("failed to fetch from data5u")
     return proxies
 
+
 def fetch_kdaili(page=1):
     """
     http://www.kuaidaili.com/
@@ -228,7 +255,7 @@ def fetch_kdaili(page=1):
         url = "http://www.kuaidaili.com/free/inha/%d/" % page
         response = requests.request("GET", url, headers=postman_headers)
         soup = BeautifulSoup(response.text, "lxml")
-        div = soup.find("div", attrs={"id":"list"})
+        div = soup.find("div", attrs={"id": "list"})
         trs = div.table.tbody.find_all("tr")
         for tr in trs:
             tds = tr.find_all("td")
@@ -241,6 +268,7 @@ def fetch_kdaili(page=1):
         logger.warning("failed to fetch kuaidaili")
     return proxies
 
+
 def fetch_ip002(page=1):
     """
     http://www.ip002.net/free.html
@@ -249,19 +277,21 @@ def fetch_ip002(page=1):
     try:
         url = "http://www.ip002.net/free_%d.html" % page
         soup = get_soup(url)
-        table = soup.find("table", attrs={"class":"table table-bordered table-hover"})
+        table = soup.find(
+            "table", attrs={"class": "table table-bordered table-hover"})
         trs = table.tbody.find_all("tr")
-        for i in range (2, len(trs)):
+        for i in range(2, len(trs)):
             tr = trs[i]
             tds = tr.find_all("td")
             ip = tds[1].text
             port = tds[2].text
             response_time = tds[4].text.split("/")[0]
             proxy = "%s:%s" % (ip, port)
-            proxies += _filter_proxy(float(response_time)/1000.00, proxy)
+            proxies += _filter_proxy(float(response_time) / 1000.00, proxy)
     except:
         logger.warning("failed to fetch ip002")
     return proxies
+
 
 def fetch_all(endpage=2):
     proxies = []
@@ -285,11 +315,14 @@ def fetch_all(endpage=2):
             valid_proxies.append(p)
     return valid_proxies
 
+
 if __name__ == '__main__':
     import sys
     root_logger = logging.getLogger("")
     stream_handler = logging.StreamHandler(sys.stdout)
-    formatter = logging.Formatter('%(name)-8s %(asctime)s %(levelname)-8s %(message)s', '%a, %d %b %Y %H:%M:%S',)
+    formatter = logging.Formatter(
+        '%(name)-8s %(asctime)s %(levelname)-8s %(message)s',
+        '%a, %d %b %Y %H:%M:%S', )
     stream_handler.setFormatter(formatter)
     root_logger.addHandler(stream_handler)
     logger = logging.getLogger(__name__)
@@ -297,4 +330,4 @@ if __name__ == '__main__':
     proxies = fetch_all()
     with open("proxies.dat", "w") as fd:
         for proxy in proxies:
-            fd.write(proxy+"\n")
+            fd.write(proxy + "\n")
