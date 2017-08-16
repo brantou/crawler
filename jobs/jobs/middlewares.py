@@ -116,18 +116,18 @@ class RandomHttpProxyMiddleware(object):
             self.chosen_proxy = random.choice(self.proxies)
 
     def _load_proxies(self):
-        with open(self.proxy_file, "r") as fd:
+        with open(self.proxy_file, 'r') as fd:
             lines = fd.readlines()
             for line in lines:
                 line = line.strip()
-                if not line or self._in_proxies("http://" + line):
+                if not line or self._in_proxies('http://' + line):
                     continue
-                self.proxies.append("http://" + line)
+                self.proxies.append('http://' + line)
 
     def _in_proxies(self, proxy):
-        """
+        '''
         返回一个代理是否在代理列表中
-        """
+        '''
         for p in self.proxies:
             if proxy == p:
                 return True
@@ -159,11 +159,11 @@ class RandomHttpProxyMiddleware(object):
     def process_request(self, request, spider):
         # Don't overwrite with a random one (server-side state for IP)
         if 'proxy' in request.meta:
-            if request.meta["exception"] is False:
+            if request.meta['exception'] is False:
                 return
-        request.meta["exception"] = False
+        request.meta['exception'] = False
 
-        if request.meta["change_proxy"]:
+        if 'change_proxy' in request.meta:
             self._remove_proxy(proxy)
 
         if len(self.proxies) == 0:
@@ -175,21 +175,21 @@ class RandomHttpProxyMiddleware(object):
                                                             len(self.proxies)))
 
     def process_response(self, request, response, spider):
-        """
+        '''
         检查response.status,
         根据status是否在允许的状态码中决定是否切换到下一个proxy
-        """
-        if "proxy" in request.meta.keys():
-            logger.debug("%s %s %s" % (request.meta["proxy"], response.status,
+        '''
+        if 'proxy' in request.meta.keys():
+            logger.debug('%s %s %s' % (request.meta['proxy'], response.status,
                                        request.url))
         else:
-            logger.debug("None %s %s" % (response.status, request.url))
+            logger.debug('None %s %s' % (response.status, request.url))
 
         # status不是正常的200,
         # 而且不在spider声明的正常爬取过程中可能出现的status列表中,
         # 则认为代理无效, 切换代理
         if response.status != 200 \
-                and (not hasattr(spider, "website_possible_httpstatus_list") \
+                and (not hasattr(spider, 'website_possible_httpstatus_list') \
                              or response.status not in spider.website_possible_httpstatus_list):
             new_request = request.copy()
             new_request.dont_filter = True
@@ -203,6 +203,6 @@ class RandomHttpProxyMiddleware(object):
 
         proxy = request.meta['proxy']
         self._remove_proxy(proxy)
-        request.meta["exception"] = True
+        request.meta['exception'] = True
         logger.debug('Removing failed proxy <%s>, %d proxies left' %
                      (proxy, len(self.proxies)))
