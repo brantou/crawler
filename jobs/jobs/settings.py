@@ -106,3 +106,8 @@ MONGO_DATABASE = 'jobs'
 # Proxy config
 PROXY_MODE = 0
 PROXY_FILE = 'proxies.dat'
+
+# Retry many times since proxies often fail
+RETRY_TIMES = 5
+# Retry on most error codes since proxies fail for different reasons
+RETRY_HTTP_CODES = [500, 503, 504, 400, 403, 404, 408]
