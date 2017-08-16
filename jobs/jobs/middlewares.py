@@ -103,7 +103,7 @@ class RandomHttpProxyMiddleware(object):
             return
 
         if self.proxy_mode == ProxyMode.CHANGE_EVERY_REQ \
-           or self.proxy_mode = ProxyMode.RANDOM_EVERY_REQ:
+           or self.proxy_mode == ProxyMode.RANDOM_EVERY_REQ:
             self._load_proxies()
 
         if self.proxy_mode == ProxyMode.RANDOM_ONCE_INIT:
