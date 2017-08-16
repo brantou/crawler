@@ -143,14 +143,14 @@ class RandomHttpProxyMiddleware(object):
         if self.proxy_mode == ProxyMode.CUSTOM_SET:
             self.chosen_proxy = None
 
-    def _choice_proxy(self, proxy):
+    def _choice_proxy(self):
         if self.proxy_mode == ProxyMode.RANDOM_EVERY_REQ:
-            proxy_address = random.choice(self.proxies)
+            return random.choice(self.proxies)
         elif self.proxy_mode == ProxyMode.CHANGE_EVERY_REQ:
             self.proxy_index = (self.proxy_index + 1) % len(self.proxies)
-            proxy_address = self.proxies[self.proxy_index]
+            return self.proxies[self.proxy_index]
         else:
-            proxy_address = self.chosen_proxy
+            return self.chosen_proxy
 
     @classmethod
     def from_crawler(cls, crawler):
