@@ -35,33 +35,29 @@ class LagouSpider(scrapy.Spider):
         'x-anit-forge-code':
         "0",
         'user-agent':
-        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36",
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36",
         'content-type':
         "application/x-www-form-urlencoded",
         'accept':
         "application/json, text/javascript, */*; q=0.01",
-        'x-devtools-emulate-network-conditions-client-id':
-        "10bf7e10-9a65-4107-af06-8c1e4e2adfb0",
         'x-requested-with':
         "XMLHttpRequest",
         'x-anit-forge-token':
         "None",
-        'x-devtools-request-id':
-        "34764.994",
         'dnt':
         "1",
         'referer':
-        "https://www.lagou.com/jobs/list_golang?labelWords=&fromSearch=true&suginput=",
+        "https://www.lagou.com/jobs/list_java?labelWords=&fromSearch=true&suginput=",
         'accept-encoding':
         "gzip, deflate, br",
         'accept-language':
         "zh-CN,zh;q=0.8,en;q=0.6",
         'cookie':
-        "PRE_UTM=; PRE_HOST=; PRE_SITE=https%3A%2F%2Fwww.lagou.com%2F; PRE_LAND=https%3A%2F%2Fwww.lagou.com%2Fjobs%2Flist_%25E6%2595%25B0%25E6%258D%25AE%25E5%2588%2586%25E6%259E%2590%3FlabelWords%3D%26fromSearch%3Dtrue%26suginput%3D; _gat=1; user_trace_token=20170728162449-adcee15cc85848189cfb891619b80998; LGUID=20170728162451-3a327df6-736e-11e7-b9bc-5254005c3644; index_location_city=%E5%85%A8%E5%9B%BD; JSESSIONID=ABAAABAACBHABBI1DE966CF9357E8BD2D82C53257584955; X_HTTP_TOKEN=2274185a2011ec03f73ab98f8ceaf490; SEARCH_ID=a50321fae35144159899efa4748969f9; Hm_lvt_4233e74dff0ae5bd0a3d81c6ccf756e6=1501230293; Hm_lpvt_4233e74dff0ae5bd0a3d81c6ccf756e6=1501315350; _ga=GA1.2.1475031428.1501230295; LGSID=20170729153328-36c6e933-7430-11e7-a5f5-525400f775ce; LGRID=20170729160222-406c00aa-7434-11e7-a676-525400f775ce; TG-TRACK-CODE=search_code; user_trace_token=20170728162449-adcee15cc85848189cfb891619b80998; LGUID=20170728162451-3a327df6-736e-11e7-b9bc-5254005c3644; X_HTTP_TOKEN=2274185a2011ec03f73ab98f8ceaf490; _gat=1; PRE_UTM=; PRE_HOST=; PRE_SITE=https%3A%2F%2Fwww.lagou.com%2Fgongsi%2F; PRE_LAND=https%3A%2F%2Fwww.lagou.com%2F; index_location_city=%E4%B8%8A%E6%B5%B7; Hm_lvt_4233e74dff0ae5bd0a3d81c6ccf756e6=1501230293; Hm_lpvt_4233e74dff0ae5bd0a3d81c6ccf756e6=1502115562; _ga=GA1.2.1475031428.1501230295; LGSID=20170807221703-15e8d3a5-7b7b-11e7-839b-5254005c3644; LGRID=20170807221829-4925d8ec-7b7b-11e7-8499-525400f775ce; user_trace_token=20170728162449-adcee15cc85848189cfb891619b80998; LGUID=20170728162451-3a327df6-736e-11e7-b9bc-5254005c3644; X_HTTP_TOKEN=2274185a2011ec03f73ab98f8ceaf490; JSESSIONID=ABAAABAACBHABBI1DE966CF9357E8BD2D82C53257584955; _gat=1; PRE_UTM=; PRE_HOST=; PRE_SITE=https%3A%2F%2Fwww.lagou.com%2Fgongsi%2F; PRE_LAND=https%3A%2F%2Fwww.lagou.com%2F; Hm_lvt_4233e74dff0ae5bd0a3d81c6ccf756e6=1501230293; Hm_lpvt_4233e74dff0ae5bd0a3d81c6ccf756e6=1502115517; _ga=GA1.2.1475031428.1501230295; LGSID=20170807221703-15e8d3a5-7b7b-11e7-839b-5254005c3644; LGRID=20170807221749-312e97c2-7b7b-11e7-8499-525400f775ce; index_location_city=%E4%B8%8A%E6%B5%B7; TG-TRACK-CODE=index_search; SEARCH_ID=8540f6617de14ed6bdd94899253c347c",
+        "user_trace_token=20170728162449-adcee15cc85848189cfb891619b80998; LGUID=20170728162451-3a327df6-736e-11e7-b9bc-5254005c3644; _gat=1; JSESSIONID=ABAAABAACBHABBI1DE966CF9357E8BD2D82C53257584955; PRE_UTM=; PRE_HOST=; PRE_SITE=https%3A%2F%2Fwww.lagou.com%2Fjobs%2Flist_golang%3FlabelWords%3D%26fromSearch%3Dtrue%26suginput%3D; PRE_LAND=https%3A%2F%2Fwww.lagou.com%2F; index_location_city=%E5%85%A8%E5%9B%BD; TG-TRACK-CODE=index_checkmore; X_HTTP_TOKEN=2274185a2011ec03f73ab98f8ceaf490; Hm_lvt_4233e74dff0ae5bd0a3d81c6ccf756e6=1501230293; Hm_lpvt_4233e74dff0ae5bd0a3d81c6ccf756e6=1502382038; _ga=GA1.2.1475031428.1501230295; LGSID=20170811001727-66af8955-7de7-11e7-96c3-525400f775ce; LGRID=20170811001930-b074a8af-7de7-11e7-96c3-525400f775ce; SEARCH_ID=a614dcefbf1d400780199aa2e9b1c95e; user_trace_token=20170728162449-adcee15cc85848189cfb891619b80998; LGUID=20170728162451-3a327df6-736e-11e7-b9bc-5254005c3644; user_trace_token=20170728162449-adcee15cc85848189cfb891619b80998; LGUID=20170728162451-3a327df6-736e-11e7-b9bc-5254005c3644; _gat=1; PRE_UTM=; PRE_HOST=; PRE_SITE=https%3A%2F%2Fwww.lagou.com%2Fgongsi%2F; PRE_LAND=https%3A%2F%2Fwww.lagou.com%2F; Hm_lvt_4233e74dff0ae5bd0a3d81c6ccf756e6=1501230293; Hm_lpvt_4233e74dff0ae5bd0a3d81c6ccf756e6=1502115517; _ga=GA1.2.1475031428.1501230295; LGSID=20170807221703-15e8d3a5-7b7b-11e7-839b-5254005c3644; LGRID=20170807221749-312e97c2-7b7b-11e7-8499-525400f775ce; index_location_city=%E4%B8%8A%E6%B5%B7; index_location_city=%E5%85%A8%E5%9B%BD; X_HTTP_TOKEN=2274185a2011ec03f73ab98f8ceaf490; JSESSIONID=ABAAABAACBHABBI1DE966CF9357E8BD2D82C53257584955; PRE_UTM=; PRE_HOST=; PRE_SITE=; PRE_LAND=https%3A%2F%2Fwww.lagou.com%2F; TG-TRACK-CODE=index_search; _ga=GA1.2.1475031428.1501230295; Hm_lvt_4233e74dff0ae5bd0a3d81c6ccf756e6=1501230293; Hm_lpvt_4233e74dff0ae5bd0a3d81c6ccf756e6=1502897724; LGSID=20170816233506-7a902bd5-8298-11e7-be41-525400f775ce; LGRID=20170816233523-84dd2b0e-8298-11e7-be41-525400f775ce; SEARCH_ID=b1bfc38325524b19834cbce76deddaa6",
         'cache-control':
         "no-cache",
         'postman-token':
-        "f1871599-3a8e-0745-a34b-b8c17c4328f2"
+        "fdd777d6-9b34-b322-5c2d-c6164023e669"
     }
 
     def start_requests(self):
