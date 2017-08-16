@@ -94,7 +94,9 @@ class RandomHttpProxyMiddleware(object):
             raise KeyError('PROXY_FILE setting is missing')
         if not os.path.exists(self.proxy_file):
             raise KeyError('PROXY_FILE not exists')
+        self._init_proxy()
 
+    def _init_proxy(self):
         if self.proxy_mode == ProxyMode.CUSTOM_SET:
             self.chosen_proxy = crawler.settings.get('CUSTOM_PROXY')
             if not self.chosen_proxy:
