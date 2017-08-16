@@ -129,7 +129,23 @@ class RandomHttpProxyMiddleware(object):
         return False
 
     def _remove_proxy(self, proxy):
-        self.proxies.remove(proxy)
+        if len(self.proxies) > 0:
+            self.proxies.remove(proxy)
+
+        if self.proxy_mode == ProxyMode.RANDOM_ONCE_INIT:
+            self.chosen_proxy = random.choice(self.proxies)
+
+        if self.proxy_mode == ProxyMode.CUSTOM_SET:
+            self.chosen_proxy = None
+
+    def _choice_proxy(self, proxy):
+        if self.proxy_mode == ProxyMode.RANDOM_EVERY_REQ:
+            proxy_address = random.choice(self.proxies)
+        elif self.proxy_mode == ProxyMode.CHANGE_EVERY_REQ:
+            self.proxy_index = (self.proxy_index + 1) % len(self.proxies)
+            proxy_address = self.proxies[self.proxy_index]
+        else:
+             proxy_address = self.chosen_proxy
 
     @classmethod
     def from_crawler(cls, crawler):
@@ -141,18 +157,14 @@ class RandomHttpProxyMiddleware(object):
             if request.meta["exception"] is False:
                 return
         request.meta["exception"] = False
+
+        if request.meta["change_proxy"]:
+            self._remove_proxy(proxy)
+
         if len(self.proxies) == 0:
             raise ValueError('All proxies are unusable, cannot proceed')
 
-        proxy_address = None
-        if self.proxy_mode == ProxyMode.RANDOM_EVERY_REQ:
-            proxy_address = random.choice(self.proxies)
-        elif self.proxy_mode == ProxyMode.CHANGE_EVERY_REQ:
-            self.proxy_index = (self.proxy_index + 1) % len(self.proxies)
-            proxy_address = self.proxies[self.proxy_index]
-        else:
-            proxy_address = self.chosen_proxy
-
+        proxy_address =  self._choice_proxy()
         request.meta['proxy'] = proxy_address
         logger.debug('Using proxy <%s>, %d proxies left' % (proxy_address, len(self.proxies)))
 
@@ -182,13 +194,7 @@ class RandomHttpProxyMiddleware(object):
         if 'proxy' not in request.meta:
             return
 
-        if self.proxy_mode >= ProxyMode.CHANGE_EVERY_REQ \
-           and self.proxy_mode <= ProxyMode.RANDOM_ONCE_INIT:
-            proxy = request.meta['proxy']
-            self._remove_proxy(proxy)
-            request.meta["exception"] = True
-
-            if self.proxy_mode == ProxyMode.RANDOM_ONCE_INIT:
-                self.chosen_proxy = random.choice(self.proxies)
-
-            logger.debug('Removing failed proxy <%s>, %d proxies left' % (proxy, len(self.proxies)))
+        proxy = request.meta['proxy']
+        self._remove_proxy(proxy)
+        request.meta["exception"] = True
+        logger.debug('Removing failed proxy <%s>, %d proxies left' % (proxy, len(self.proxies)))
