@@ -16,9 +16,6 @@ class JobsPipeline(object):
 
 
 class MongoPipeline(object):
-
-    collection_name = 'jobs_items'
-
     def __init__(self, mongo_uri, mongo_db):
         self.mongo_uri = mongo_uri
         self.mongo_db = mongo_db
@@ -38,7 +35,7 @@ class MongoPipeline(object):
         self.client.close()
 
     def process_item(self, item, spider):
-        self.db[self.collection_name].insert_one(dict(item))
+        self.db[spider.name].insert_one(dict(item))
         return item
 
 
