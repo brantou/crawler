@@ -33,3 +33,16 @@ class JobsItem(scrapy.Item):
     jobNature = scrapy.Field()
     keyword = scrapy.Field()
     createTime = scrapy.Field()
+
+
+class ZhipinItem(scrapy.Item):
+    city = scrapy.Field()
+    education = scrapy.Field()
+    workYear = scrapy.Field()
+    salary = scrapy.Field()
+    positionName = scrapy.Field()
+    positionLables = scrapy.Field()
+    companyShortName = scrapy.Field()
+    industryField = scrapy.Field()
+    financeStage = scrapy.Field()
+    companySize = scrapy.Field()
