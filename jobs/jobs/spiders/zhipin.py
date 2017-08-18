@@ -71,10 +71,7 @@ class ZhipinSpider(scrapy.Spider):
 
     def next_request(self):
         return scrapy.http.FormRequest(
-            self.positionUrl+,
+            self.positionUrl + ("?page=%d&ka=page-%d" %
+                                (self.curPage, self.curPage)),
             headers=self.headers,
-            formdata={
-                "page": str(self.curPage),
-                "ka": "page-" + str(self.curPage)
-            },
             callback=self.parse)
