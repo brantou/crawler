@@ -7,7 +7,7 @@ class ZhipinSpider(scrapy.Spider):
     name = 'zhipin'
     allowed_domains = ['www.zhipin.com']
     start_urls = ['http://www.zhipin.com/']
-    positionUrl = 'http://www.zhipin.com/c101020100/?ka=all-jobs'
+    positionUrl = 'http://www.zhipin.com/c101020100/'
 
     curPage = 1
 
@@ -42,6 +42,8 @@ class ZhipinSpider(scrapy.Spider):
         for job in job_list:
             item = ZhipinItem()
             job_primary = job.css('div.job-primary')
+            item['pid'] = job.css(
+                'div.info-primary > h3 > a::attr(data-jobid)').extract_first()
             item["positionName"] = job_primary.css(
                 'div.info-primary > h3 > a::text').extract_first()
             item["salary"] = job_primary.css(
@@ -69,7 +71,7 @@ class ZhipinSpider(scrapy.Spider):
 
     def next_request(self):
         return scrapy.http.FormRequest(
-            self.positionUrl,
+            self.positionUrl+,
             headers=self.headers,
             formdata={
                 "page": str(self.curPage),

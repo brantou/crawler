@@ -36,6 +36,7 @@ class JobsItem(scrapy.Item):
 
 
 class ZhipinItem(scrapy.Item):
+    pid = scrapy.Field()
     city = scrapy.Field()
     education = scrapy.Field()
     workYear = scrapy.Field()
