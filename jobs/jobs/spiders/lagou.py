@@ -65,9 +65,9 @@ class LagouSpider(scrapy.Spider):
 
     def parse(self, response):
         jdict = json.loads(response.body)
-        jcontent = jdict["content"]
-        jposresult = jcontent["positionResult"]
-        jresult = jposresult["result"]
+        jcontent = jdict['content']
+        jposresult = jcontent['positionResult']
+        jresult = jposresult['result']
         self.totalPageCount = int(jposresult['totalCount']) / int(
             jcontent['pageSize']) + 1
         for entry in jresult:
