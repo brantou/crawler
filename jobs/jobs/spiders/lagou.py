@@ -64,7 +64,6 @@ class LagouSpider(scrapy.Spider):
         return [self.next_request()]
 
     def parse(self, response):
-        item = JobsItem()
         jdict = json.loads(response.body)
         jcontent = jdict["content"]
         jposresult = jcontent["positionResult"]
@@ -72,6 +71,7 @@ class LagouSpider(scrapy.Spider):
         self.totalPageCount = int(jposresult['totalCount']) / int(
             jcontent['pageSize']) + 1
         for entry in jresult:
+            item = JobsItem()
             item['pid'] = entry['positionId']
             item['keyword'] = self.keyword
             for fn in self.item_fns:

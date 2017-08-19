@@ -47,3 +47,26 @@ class ZhipinItem(scrapy.Item):
     industryField = scrapy.Field()
     financeStage = scrapy.Field()
     companySize = scrapy.Field()
+
+
+class LiepinItem(scrapy.Item):
+    pid = scrapy.Field()
+    city = scrapy.Field()
+    education = scrapy.Field()
+    workYear = scrapy.Field()
+    salary = scrapy.Field()
+    positionName = scrapy.Field()
+    industryField = scrapy.Field()
+    companyShortName = scrapy.Field()
+    companyLabelList = scrapy.Field()
+
+
+class NeituiItem(scrapy.Item):
+    pid = scrapy.Field()
+    city = scrapy.Field()
+    education = scrapy.Field()
+    workYear = scrapy.Field()
+    salary = scrapy.Field()
+    positionName = scrapy.Field()
+    companyShortName = scrapy.Field()
+    financeStage = scrapy.Field()

@@ -8,7 +8,6 @@ class ZhipinSpider(scrapy.Spider):
     allowed_domains = ['www.zhipin.com']
     start_urls = ['http://www.zhipin.com/']
     positionUrl = 'http://www.zhipin.com/c101020100/'
-
     curPage = 1
 
     headers = {
