@@ -72,7 +72,7 @@ class LagouSpider(scrapy.Spider):
             jcontent['pageSize']) + 1
         for entry in jresult:
             item = JobsItem()
-            item['pid'] = entry['positionId']
+            item['pid'] = entry['positionId'] + "_" + entry["publisherId"]
             item['keyword'] = self.keyword
             for fn in self.item_fns:
                 item[fn] = entry[fn]
