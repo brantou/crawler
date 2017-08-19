@@ -71,13 +71,16 @@ class LagouSpider(scrapy.Spider):
         self.totalPageCount = int(jposresult['totalCount']) / int(
             jcontent['pageSize']) + 1
         for entry in jresult:
+            if len(entry) < 10:
+                continue
             item = JobsItem()
             item['pid'] = str(entry['positionId']) + "_" + str(
                 entry['publisherId'])
             item['keyword'] = self.keyword
             for fn in self.item_fns:
                 item[fn] = entry[fn]
-                yield item
+
+            yield item
 
         if self.curPage <= self.totalPageCount:
             self.curPage += 1
