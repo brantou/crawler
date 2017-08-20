@@ -45,6 +45,8 @@ class NeituiSpider(scrapy.Spider):
             item['positionName'] = job_info.css(
                 'div.mt5.clearfix > a::text').extract_first()
             infos = job_info.css('div > span::text').extract()
+            if len(infos) < 7:  # drop
+                continue
             item['salary'] = infos[1]
             item['workYear'] = infos[2]
             item['education'] = infos[3]
