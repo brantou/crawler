@@ -26,8 +26,6 @@ class AlibabaSpider(scrapy.Spider):
         "application/x-www-form-urlencoded",
         'dnt':
         "1",
-        'referer':
-        "https://job.alibaba.com/zhaopin/positionList.htm",
         'accept-encoding':
         "gzip, deflate, br",
         'accept-language':
