@@ -41,7 +41,7 @@ class BaiduSpider(scrapy.Spider):
         return [self.next_request()]
 
     def parse(self, response):
-        jdict = json.loads(response)
+        jdict = json.loads(response.body)
         self.totalPage = int(jdict['totalPage'])
         jdatas = jdict['postList']
         for entry in jdatas:
@@ -58,6 +58,7 @@ class BaiduSpider(scrapy.Spider):
     def next_request(self):
         return scrapy.http.FormRequest(
             url=self.positionUrl,
+            method='GET',
             headers=self.headers,
             formdata={
                 'curPage': str(self.curPage),
