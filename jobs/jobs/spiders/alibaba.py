@@ -47,11 +47,8 @@ class AlibabaSpider(scrapy.Spider):
         self.totalPage = int(jreturnVal['totalPage'])
         jdatas = jreturnVal['datas']
         for entry in jdatas:
-            item = {}
-            item['pid'] = entry['id']
-            for key in entry:
-                item[key] = entry[key]
-            yield item
+            entry['pid'] = entry['id']
+            yield entry
 
         self.pageIndex += 1
         if self.pageIndex <= self.totalPage:

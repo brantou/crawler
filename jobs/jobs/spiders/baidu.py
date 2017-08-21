@@ -45,11 +45,8 @@ class BaiduSpider(scrapy.Spider):
         self.totalPage = int(jdict['totalPage'])
         jdatas = jdict['postList']
         for entry in jdatas:
-            item = {}
-            item['pid'] = entry['postId']
-            for key in entry:
-                item[key] = entry[key]
-            yield item
+            entry['pid'] = entry['postId']
+            yield entry
 
         self.curPage += 1
         if self.curPage <= self.totalPage:
