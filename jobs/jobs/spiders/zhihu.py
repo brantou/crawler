@@ -114,7 +114,7 @@ class ZhihuSpider(scrapy.Spider):
                 },
                 callback=self.parse)
         else:
-            print dict['error']
+            print(jdict['error'])
 
     def parse(self, response):
         with open('zhihu.json', 'a') as fd:
