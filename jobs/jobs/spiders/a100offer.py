@@ -38,10 +38,8 @@ class A100offerSpider(scrapy.Spider):
         ]
 
     def post_login(self, response):
-        print('post_login', response.body)
         csrf = response.css(
             'head > meta[name=csrf-token]::attr(content)').extract_first()
-        print(csrf)
         self.headers['X-CSRF-Token'] = csrf
         return [
             scrapy.http.FormRequest.from_response(
@@ -60,11 +58,9 @@ class A100offerSpider(scrapy.Spider):
         ]
 
     def after_login(self, response):
-        print('after_login', response.body)
         return self.next_request(response)
 
     def parse(self, response):
-        print(response.body)
         with open('100offer.html', 'w') as fd:
             fd.write(response.body)
 
