@@ -9,10 +9,14 @@ class ZhihuSpider(scrapy.Spider):
     start_urls = ['https://www.zhihu.com/']
     loginUrl = 'https://www.zhihu.com/#signin'
     siginUrl = 'https://www.zhihu.com/login/email'
+
     feedUrl = 'https://www.zhihu.com/api/v3/feed/topstory'
     nextFeedUrl = ''
-
     curFeedId = 0
+
+    custom_settings = {
+        "COOKIES_ENABLED": True,
+    }
 
     headers = {
         'Host':
