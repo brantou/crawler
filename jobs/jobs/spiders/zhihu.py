@@ -22,11 +22,11 @@ class ZhihuSpider(scrapy.Spider):
         'Origin':
         'https://www.zhihu.com',
         'User-Agent':
-        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36',
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36',
         'Content-Type':
         'application/x-www-form-urlencoded; charset=UTF-8',
         'Accept':
-        '*/*',
+        'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
         'X-Requested-With':
         'XMLHttpRequest',
         'DNT':
@@ -37,6 +37,8 @@ class ZhihuSpider(scrapy.Spider):
         'gzip, deflate, br',
         'Accept-Language':
         'zh-CN,zh;q=0.8,en;q=0.6',
+        'Upgrade-Insecure-Requests:':
+        1,
     }
 
     cookies = {
@@ -51,15 +53,13 @@ class ZhihuSpider(scrapy.Spider):
         'q_c1':
         'b7918ff9a5514d2981c30050c8c732e1|1502937247000|1491446589000',
         'aliyungf_tc':
-        'AQAAAHVgviiNyQsAOhSntJ5J/coWYtad',
+        'AQAAACtKLW+lywEAOhSntJwFFTilwpwt',
         '_xsrf':
-        'b12fdca8-cb35-407a-bc4c-6b05feff37cb',
-        'l_cap_id':
-        '"MDk0MzRjYjM4NjAwNDU0MzhlYWNlODQ3MGQzZWM0YWU=|1503382513|9af99534aa22d5db92c7f58b45f3f3c772675fed"',
+        'f3ab08fc68489f44ae77236555367c70',
         'r_cap_id':
-        '"M2RlNDZjN2RkNTBmNGFmNDk2ZjY4NjIzY2FmNTE4NDg=|1503382513|13370a99ee367273b71d877de17f05b2986ce0ef"',
+        '"M2NjNDAwNTZmY2ExNDA3NzgzNjZkZDA1ODNjZWJkNjI=|1503458111|36984ab33f21997b742d97ace2e02043cbb0a76e"',
         'cap_id':
-        '"NmZjODUxZjQ0NzgxNGEzNmJiOTJhOTlkMTVjNWIxMDQ=|1503382513|dba2e9c6af7f950547474f827ef440d7a2950163"',
+        '"ZTIxMmM5Yzg1MGJkNDcxNjgxYzZjMjNlYTg3OGE0Yzk=|1503457914|8dce8550bca28e427771a0e7e1fe1bafb6e170f6"',
     }
 
     def start_requests(self):
