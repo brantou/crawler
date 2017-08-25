@@ -38,7 +38,6 @@ class DidiSpider(scrapy.Spider):
         for item in items:
             yield scrapy.http.FormRequest(
                 url=self.detailUrl % (item['jdId']),
-                method='GET',
                 headers=self.headers,
                 callback=self.parse_detail)
 
@@ -54,7 +53,6 @@ class DidiSpider(scrapy.Spider):
     def next_request(self):
         return scrapy.http.FormRequest(
             url=self.positionUrl,
-            method='GET',
             headers=self.headers,
             formdata={
                 "channelCode": "501",
