@@ -1,11 +1,12 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-from bs4 import BeautifulSoup
+
 import requests
-import urllib2
 import logging
+from bs4 import BeautifulSoup
 from ip_info import get_local_ip
 from check_proxy import check_proxy
+from util import get_html, get_soup
 
 logger = logging.getLogger(__name__)
 
@@ -29,21 +30,6 @@ postman_headers = {
     "Cookie":
     "auth=2e7ac706e8461dd98bb679502951b17b; JSESSIONID=C6550B3EB31544825D03BC5A8EB60EFA; Hm_lvt_3406180e5d656c4789c6c08b08bf68c2=1502597177; Hm_lpvt_3406180e5d656c4789c6c08b08bf68c2=1502767721; auth=2e7ac706e8461dd98bb679502951b17b; JSESSIONID=C55C93B915D81D5ED6082F0C0C492E80; Hm_lvt_3406180e5d656c4789c6c08b08bf68c2=1502597177; Hm_lpvt_3406180e5d656c4789c6c08b08bf68c2=1502789892",
 }
-
-
-def get_html(url):
-    request = urllib2.Request(url)
-    request.add_header(
-        "User-Agent",
-        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36"
-    )
-    html = urllib2.urlopen(request)
-    return html.read()
-
-
-def get_soup(url):
-    soup = BeautifulSoup(get_html(url), "lxml")
-    return soup
 
 
 def _filter_proxy(resp_time, proxy):
