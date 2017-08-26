@@ -64,7 +64,7 @@ U3D 3 nz
 UI设计培训讲师 8 nz
 UI设计师 5 nz
 UX设计师 5 nz
-Unity 3D培训讲师 12 nz
+Unity3D培训讲师 11 nz
 VB 2 nz
 WEB安全 5 nz
 WP 2 nz
@@ -246,7 +246,6 @@ ggplot2 7 nz
 git 3 nz
 github 6 nz
 go 2 nz
-golang 6 nz
 google 6 nz
 gps 3 nz
 gradle 6 nz
@@ -754,7 +753,7 @@ zend 4 nz
 可靠度工程师 6 nz
 合伙人 3 nz
 合规稽查 4 nz
-同声传译   6 nz
+同声传译 4 nz
 后勤 2 nz
 后期制作 4 nz
 后端开发其它 6 nz
@@ -1014,7 +1013,7 @@ zend 4 nz
 牙科医生 4 nz
 物业总监 4 nz
 物业招商管理 6 nz
-物业租赁销售  7 nz
+物业租赁销售 6 nz
 物业管理 4 nz
 物仓调度 4 nz
 物仓项目 4 nz

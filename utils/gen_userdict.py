@@ -58,6 +58,7 @@ if __name__ == '__main__':
             continue
         if len(word.split('-')) > 1:
             word = word.split('-')[0]
+        word = word.replace(' ', '')
         if word not in word_set:
             word_set.add(word)
 
