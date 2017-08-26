@@ -52,13 +52,17 @@ if __name__ == '__main__':
     words += fetch_zhipin()
     words += fetch_lagou()
     words += fetch_stackoverflow()
-    word_set = set(words)
+    word_set = set()
+    for word in words:
+        if len(word.split('/')) > 1 or len(word.split('.')) > 1:
+            continue
+        if len(word.split('-')) > 1:
+            word = word.split('-')[0]
+        if word not in word_set:
+            word_set.add(word)
+
     with open('userdict.txt', 'w') as fd:
         for word in word_set:
-            if len(word.split('/')) > 1:
-                continue
-            if len(word.split('-')) > 1:
-                word = word.split('-')[0]
             fd.write(word.encode('utf8'))
             fd.write(' ' + str(len(word)))
             fd.write(' nz')
