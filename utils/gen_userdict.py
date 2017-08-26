@@ -56,5 +56,6 @@ if __name__ == '__main__':
     with open('userdict.txt', 'w') as fd:
         for word in word_set:
             fd.write(word.encode('utf8'))
+            fd.write(' ' + str(len(word)))
             fd.write(' nz')
             fd.write('\n')
