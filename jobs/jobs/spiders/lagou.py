@@ -343,7 +343,7 @@ class LagouSpider(scrapy.Spider):
 
             yield item
 
-        if self.curPage * self.pageSize < self.total:
+        if self.curPage * self.pageSize < self.totalCount:
             self.curPage += 1
             yield self.next_request()
         elif self.kd_cur < len(self.keywords) - 1:
