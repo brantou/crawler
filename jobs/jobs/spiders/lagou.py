@@ -9,6 +9,7 @@ class LagouSpider(scrapy.Spider):
     allowed_domains = ['www.lagou.com']
     start_urls = ['https://www.lagou.com/jobs/']
     positionUrl = 'https://www.lagou.com/jobs/positionAjax.json?'
+    refererUrl = "https://www.lagou.com/jobs/list_%s?city=%E5%85%A8%E5%9B%BD&cl=false&fromSearch=true&labelWords=&suginput=",
 
     totalCount = 0
     pageSize = 0
@@ -355,6 +356,7 @@ class LagouSpider(scrapy.Spider):
             yield self.next_request()
 
     def next_request(self):
+        self.headers['referer'] = self.refererUrl % (self.keyword)
         return scrapy.http.FormRequest(
             self.positionUrl,
             headers=self.headers,
