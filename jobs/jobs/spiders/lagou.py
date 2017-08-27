@@ -10,8 +10,6 @@ class LagouSpider(scrapy.Spider):
     allowed_domains = ['www.lagou.com']
     start_urls = ['https://www.lagou.com/jobs/']
     positionUrl = 'https://www.lagou.com/jobs/positionAjax.json?'
-    totalCount = 0
-    pageSize = 0
     curPage = 1
 
     city = '上海'
@@ -326,11 +324,10 @@ class LagouSpider(scrapy.Spider):
         jcontent = jdict['content']
         jposresult = jcontent['positionResult']
         jresult = jposresult['result']
-        self.totalCount = int(jposresult['totalCount'])
-        self.pageSize = int(jcontent['pageSize'])
-        print('[lagou][%s]totalCount: %d, pageNo: %d, pageSize: %d' %
-              (self.keyword, int(jposresult['totalCount']), self.curPage,
-               int(jcontent['pageSize'])))
+        resultSize = int(jposresult['resultSize'])
+        pageSize = int(jcontent['pageSize'])
+        print('[lagou][%s]resultSize: %d, pageNo: %d, pageSize: %d' %
+              (self.keyword, resultSize, self.curPage, pageSize))
         for entry in jresult:
             if len(entry) < 10:
                 continue
@@ -343,13 +340,11 @@ class LagouSpider(scrapy.Spider):
 
             yield item
 
-        if self.curPage * self.pageSize < self.totalCount:
+        if pageSize <= resultSize:
             self.curPage += 1
             yield self.next_request()
         elif self.kd_cur < len(self.keywords) - 1:
             self.curPage = 1
-            self.pageSize = 0
-            self.totalCount = 0
             self.kd_cur += 1
             self.keyword = self.keywords[self.kd_cur]
             yield self.next_request()
