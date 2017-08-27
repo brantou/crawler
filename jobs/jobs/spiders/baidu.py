@@ -48,8 +48,8 @@ class BaiduSpider(scrapy.Spider):
             entry['pid'] = entry['postId']
             yield entry
 
-        self.curPage += 1
-        if self.curPage <= self.totalPage:
+        if self.curPage < self.totalPage:
+            self.curPage += 1
             yield self.next_request()
 
     def next_request(self):

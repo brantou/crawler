@@ -332,9 +332,9 @@ class LagouSpider(scrapy.Spider):
             if len(entry) < 10:
                 continue
             item = JobsItem()
-            item['pid'] = str(entry['positionId']) + "_" + str(
-                entry['publisherId'])
             item['keyword'] = self.keyword
+            item['pid'] = self.keyword + "_" + str(
+                entry['positionId']) + "_" + str(entry['publisherId'])
             for fn in self.item_fns:
                 item[fn] = entry[fn]
 

@@ -42,8 +42,8 @@ class DidiSpider(scrapy.Spider):
                 headers=self.headers,
                 callback=self.parse_detail)
 
-        self.pageIndex += 1
         if self.pageIndex * self.pageSize < self.itemCount:
+            self.pageIndex += 1
             yield self.next_request()
 
     def parse_detail(self, response):

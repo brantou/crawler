@@ -50,8 +50,8 @@ class AlibabaSpider(scrapy.Spider):
             entry['pid'] = entry['id']
             yield entry
 
-        self.pageIndex += 1
-        if self.pageIndex <= self.totalPage:
+        if self.pageIndex < self.totalPage:
+            self.pageIndex += 1
             yield self.next_request()
 
     def next_request(self):
