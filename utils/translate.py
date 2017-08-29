@@ -76,4 +76,4 @@ def _google_translate(src, lfrom='zh-CHS', lto='en'):
     pass
 
 if __name__ == '__main__':
-    print translate(u'翻译测试', 'baidu')
+    print(translate(u'翻译测试', 'baidu'))
