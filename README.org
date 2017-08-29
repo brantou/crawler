@@ -1,1 +1,69 @@
-# Crawler
+#+TITLE: Crawler
+
+* 爬虫集
+  :PROPERTIES:
+  :ID:       aef07119-226a-4c8a-b5db-bad3bd9372a2
+  :END:
+  互联网招聘网址爬虫如下：
+  + 拉勾
+  + boss直聘
+  + 猎聘
+  + 内推
+  + 100offer
+
+  互联网知名公司招聘信息爬虫如下：
+  + 阿里巴巴
+  + 百度
+  + 美团
+  + 滴滴出行
+
+  内容服务商爬虫:
+  + 知乎
+
+* 爬虫脚手架
+  :PROPERTIES:
+  :ID:       81f440f1-d59b-43f6-ad35-049f8fd5a984
+  :END:
+
+** pipeline
+   :PROPERTIES:
+   :ID:       2a53dd96-b2a6-4ed4-832b-b18a19715587
+   :END:
+  目前只有两个pipeline, 一个用于数据存储，一个用于判重。
+
+** middleware
+   :PROPERTIES:
+   :ID:       d6986286-b0b1-4374-b5ba-40ff87f30722
+   :END:
+  目前只有两个中间件，一个用于生成随机UA，一个用于http代理。
+
+* 工具集
+  :PROPERTIES:
+  :ID:       36d63ee1-ce84-47cd-8358-3e2e56e2739d
+  :END:
+
+** 抓取免费代理
+   :PROPERTIES:
+   :ID:       eea5f4a1-c787-4e69-b444-1d8728f0bf1c
+   :END:
+   抓取代理网站中给出的免费代理！
+
+** 代理验证
+   :PROPERTIES:
+   :ID:       a64313fa-985b-41e1-8f3a-33a37d99cd76
+   :END:
+   使用 [[https://httpbin.org/][httpbin]] 来测验代理的时效性和种类。
+
+** IP信息获取
+   :PROPERTIES:
+   :ID:       309ed608-69c2-4cb6-bff2-f489711fbdbc
+   :END:
+   使用 [[http://api.geoiplookup.net/][geoiplookup]] 用于查询IP信息。
+
+** 翻译函数
+   :PROPERTIES:
+   :ID:       81779fb7-c9a7-4be6-b34b-0be8bb03216c
+   :END:
+   目前支持如下：
+   + 有道词典
+   + 百度翻译

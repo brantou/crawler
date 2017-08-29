@@ -6,7 +6,7 @@ import logging
 from bs4 import BeautifulSoup
 from ip_info import get_local_ip
 from check_proxy import check_proxy
-from util import get_html, get_soup
+from utils import get_html, get_soup
 
 logger = logging.getLogger(__name__)
 
