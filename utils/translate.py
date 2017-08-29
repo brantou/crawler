@@ -6,6 +6,7 @@ import time
 import urllib
 import hashlib
 
+
 def translate(src, dict_name='youdao', lfrom='zh-ChS', lto='en'):
     dicts = {
         'youdao': _youdao_translate,
@@ -19,22 +20,33 @@ def translate(src, dict_name='youdao', lfrom='zh-ChS', lto='en'):
     else:
         return src
 
+
 def _youdao_translate(src, lfrom='AUTO', lto='AUTO'):
     url = 'http://fanyi.youdao.com/translate_o?smartresult=dict&smartresult=rule'
     headers = {
-        'accept': "application/json, text/javascript, */*; q=0.01",
-        'origin': "http://fanyi.youdao.com",
-        'x-devtools-emulate-network-conditions-client-id': "528ca5f2-f42a-40dc-b8e1-134b4d1f7814",
-        'x-requested-with': "XMLHttpRequest",
-        'user-agent': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36",
-        'content-type': "application/x-www-form-urlencoded",
-        'dnt': "1",
-        'referer': "http://fanyi.youdao.com/?keyfrom=dict2.index",
-        'accept-encoding': "gzip, deflate",
-        'accept-language': "zh-CN,zh;q=0.8,en;q=0.6",
+        'accept':
+        "application/json, text/javascript, */*; q=0.01",
+        'origin':
+        "http://fanyi.youdao.com",
+        'x-devtools-emulate-network-conditions-client-id':
+        "528ca5f2-f42a-40dc-b8e1-134b4d1f7814",
+        'x-requested-with':
+        "XMLHttpRequest",
+        'user-agent':
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36",
+        'content-type':
+        "application/x-www-form-urlencoded",
+        'dnt':
+        "1",
+        'referer':
+        "http://fanyi.youdao.com/?keyfrom=dict2.index",
+        'accept-encoding':
+        "gzip, deflate",
+        'accept-language':
+        "zh-CN,zh;q=0.8,en;q=0.6",
     }
     cli = 'fanyideskweb'
-    salt = str(int(time.time()*1000))
+    salt = str(int(time.time() * 1000))
     key = "rY0D^0'nM0}g5Mm1z%1G4"
     sign = hashlib.md5((cli + src + salt + key).encode('utf-8')).hexdigest()
     payload = {
@@ -51,9 +63,9 @@ def _youdao_translate(src, lfrom='AUTO', lto='AUTO'):
         'typoResult': 'true',
         'version': '2.1',
     }
-    response = requests.request(
-        'POST', url, headers=headers, data=payload)
+    response = requests.request('POST', url, headers=headers, data=payload)
     return response.json()
+
 
 def _baidu_translate(src, lfrom='zh', lto='en'):
     lfrom = lfrom.split('-')[0]
@@ -69,11 +81,14 @@ def _baidu_translate(src, lfrom='zh', lto='en'):
     response = requests.request("POST", url, data=payload)
     return response.json()
 
+
 def _bing_translate(src, lfrom='zh-CHS', lto='en'):
     pass
+
 
 def _google_translate(src, lfrom='zh-CHS', lto='en'):
     pass
 
+
 if __name__ == '__main__':
-    print(translate(u'翻译测试', 'baidu'))
+    print(translate(u'翻译测试', 'youdao'))

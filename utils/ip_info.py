@@ -37,7 +37,7 @@ def get_ip_info(ip=''):
 
 
 def get_local_ip():
-    url = "http://icanhazip.com"
+    url = 'http://icanhazip.com'
     response = requests.request('GET', url)
     return response.text
 
