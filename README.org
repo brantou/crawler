@@ -5,20 +5,20 @@
   :ID:       aef07119-226a-4c8a-b5db-bad3bd9372a2
   :END:
   互联网招聘网址爬虫如下：
-  + 拉勾
-  + boss直聘
-  + 猎聘
-  + 内推
-  + 100offer
+  + [[https://github.com/brantou/crawler/blob/master/jobs/jobs/spiders/lagou.py][拉勾]]
+  + [[https://github.com/brantou/crawler/blob/master/jobs/jobs/spiders/zhipin.py][boss直聘]]
+  + [[https://github.com/brantou/crawler/blob/master/jobs/jobs/spiders/liepin.py][猎聘]]
+  + [[https://github.com/brantou/crawler/blob/master/jobs/jobs/spiders/neitui.py][内推]]
+  + [[https://github.com/brantou/crawler/blob/master/jobs/jobs/spiders/a100offer.py][100offer]]
 
   互联网知名公司招聘信息爬虫如下：
-  + 阿里巴巴
-  + 百度
-  + 美团
-  + 滴滴出行
+  + [[https://github.com/brantou/crawler/blob/master/jobs/jobs/spiders/alibaba.py][阿里巴巴]]
+  + [[https://github.com/brantou/crawler/blob/master/jobs/jobs/spiders/baidu.py][百度]]
+  + [[https://github.com/brantou/crawler/blob/master/jobs/jobs/spiders/meituan.py][美团]]
+  + [[https://github.com/brantou/crawler/blob/master/jobs/jobs/spiders/didi.py][滴滴出行]]
 
   内容服务商爬虫:
-  + 知乎
+  + [[https://github.com/brantou/crawler/blob/master/jobs/jobs/spiders/zhihu.py][知乎]]
 
 * 爬虫脚手架
   :PROPERTIES:
