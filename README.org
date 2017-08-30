@@ -24,29 +24,38 @@
   :PROPERTIES:
   :ID:       81f440f1-d59b-43f6-ad35-049f8fd5a984
   :END:
-
 ** pipeline
    :PROPERTIES:
    :ID:       2a53dd96-b2a6-4ed4-832b-b18a19715587
    :END:
-  目前只有两个pipeline, 一个用于数据存储，一个用于判重。
+  目前只有两个 /pipeline/ , 一个使用mongo做数据存储，一个使用set做数据的判重, 点击[[
+][查看源码]]。
 
 ** middleware
    :PROPERTIES:
    :ID:       d6986286-b0b1-4374-b5ba-40ff87f30722
    :END:
-  目前只有两个中间件，一个用于生成随机UA，一个用于http代理。
+  目前只有两个 /middleware/ ，一个使用 [[https://pypi.python.org/pypi/fake-useragent][fake_useragent]] 来生成随机UA，一个用于使用http代理列表, 点击[[https://github.com/brantou/crawler/blob/master/jobs/jobs/middlewares.py][查看源码]]。
 
 * 工具集
   :PROPERTIES:
   :ID:       36d63ee1-ce84-47cd-8358-3e2e56e2739d
   :END:
-
 ** 抓取免费代理
    :PROPERTIES:
    :ID:       eea5f4a1-c787-4e69-b444-1d8728f0bf1c
    :END:
-   抓取代理网站中给出的免费代理！
+   抓取代理网站中给出的免费代理, 并初步校验,点击[[https://github.com/brantou/crawler/blob/master/utils/free_proxy.py][查看源码]]！
+   目前抓取的代理网站如下：
+   + [[http://www.kxdaili.com/dailiip.html][开心代理]]
+   + [[http://www.kxdaili.com/dailiip.html][米扑代理]]
+   + [[http://www.kxdaili.com/dailiip.html][西刺代理]]
+   + [[http://www.ip181.com/daili/1.html][ip181]]
+   + [[http://www.httpdaili.com/mfdl/][httpdaili]]
+   + [[http://www.66ip.cn/index.html][66ip]]
+   + [[http://www.data5u.com/][无忧代理]]
+   + [[http://www.kuaidaili.com/free/][快代理]]
+   + [[http://www.ip002.net/free.html][ip002]]
 
 ** 代理验证
    :PROPERTIES:
