@@ -69,10 +69,42 @@
    :END:
    使用 [[http://api.geoiplookup.net/][geoiplookup]] 用于查询IP信息。
 
+   示例如下:
+   #+BEGIN_SRC python :session ip-info :results output pp :exports both
+     from utils.ip_info import get_ip_info
+
+     print(get_ip_info('8.8.8.8'))
+   #+END_SRC
+
+   #+RESULTS:
+   : {u'countrycode': u'US', u'ip': u'8.8.8.8', u'isp': u'Google', u'longitude': u'-97.822', u'countryname': u'United States', u'host': u'8.8.8.8', u'latitude': u'37.751'}
+
 ** 翻译函数
    :PROPERTIES:
    :ID:       81779fb7-c9a7-4be6-b34b-0be8bb03216c
    :END:
-   目前支持如下：
+   目前只做了简单封装，支持如下：
    + 有道词典
+     #+BEGIN_SRC python :session translate :results output pp :exports both
+       from utils.translate import translate
+       import json
+
+       print(translate(u'努力工作', dict_name='youdao')['translateResult'][0][0]['tgt'])
+       print(translate(u'hard work', dict_name='youdao', lfrom='en', lto='zh-CHS')['translateResult'][0][0]['tgt'])
+     #+END_SRC
+
+     #+RESULTS:
+     : To work hard
+     : 努力工作
+
    + 百度翻译
+     #+BEGIN_SRC python :session translate :results output pp :exports both
+       from utils.translate import translate
+
+       print(translate(u'努力工作', dict_name='baidu')[0]['dst'])
+       print(translate(u'hard work', dict_name='baidu', lfrom='en', lto='zh-CHS')[0]['dst'])
+     #+END_SRC
+
+     #+RESULTS:
+     : Work hard
+     : 艰苦的工作

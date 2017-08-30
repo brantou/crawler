@@ -1,4 +1,6 @@
+#!/usr/bin/python
 # -*- coding: utf-8 -*-
+
 import json
 import random
 import requests
@@ -79,7 +81,7 @@ def _baidu_translate(src, lfrom='zh', lto='en'):
         'transtype': 'translang'
     }
     response = requests.request("POST", url, data=payload)
-    return response.json()
+    return response.json()['trans_result']['data']
 
 
 def _bing_translate(src, lfrom='zh-CHS', lto='en'):
@@ -91,4 +93,4 @@ def _google_translate(src, lfrom='zh-CHS', lto='en'):
 
 
 if __name__ == '__main__':
-    print(translate(u'翻译测试', 'youdao'))
+    print(translate(u'翻译测试', 'baidu'))
