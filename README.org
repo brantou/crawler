@@ -34,7 +34,7 @@
    :PROPERTIES:
    :ID:       d6986286-b0b1-4374-b5ba-40ff87f30722
    :END:
-  目前只有两个 /*middleware* ，一个使用 [[https://pypi.python.org/pypi/fake-useragent][fake_useragent]] 来生成随机UA，一个用于使用http代理列表, 点击[[https://github.com/brantou/crawler/blob/master/jobs/jobs/middlewares.py][查看源码]]。
+  目前只有两个 *middleware* ，一个使用 [[https://pypi.python.org/pypi/fake-useragent][fake_useragent]] 来生成随机UA，一个用于使用http代理列表, 点击[[https://github.com/brantou/crawler/blob/master/jobs/jobs/middlewares.py][查看源码]]。
 
 * 工具集
   :PROPERTIES:
