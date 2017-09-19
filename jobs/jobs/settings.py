@@ -102,7 +102,9 @@ AUTOTHROTTLE_DEBUG = False
 
 # Feed exports
 # FEED_FORMAT = 'csv'
-# FEED_URI = 'flie:./scraping/feeds/%(name)s/%(time)s.csv'
+# from os import path
+# d = path.dirname(__file__)
+# FEED_URI = 'file://' + d + '/scraping/feeds/%(name)s/%(time)s.csv'
 
 # Custom configuration
 MONGO_URI = 'mongodb://localhost:27017/'
